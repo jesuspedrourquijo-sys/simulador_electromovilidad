@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación: Entorno Económico y Legal</title>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-red: #f87171;
+            --accent-orange: #fb923c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 25px;
+        }
+
+        .header-container {
+            max-width: 1450px;
+            margin: 0 auto 25px auto;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .header-container h1 {
+            margin: 0; font-size: 28px; font-weight: 800; color: #fff;
+            display: flex; align-items: center; gap: 16px;
+        }
+
+        .header-container h1 span {
+            background: linear-gradient(90deg, #fff 40%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-container p {
+            margin: 0; color: var(--text-muted); font-size: 13.5px; font-weight: 500;
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1450px;
+            margin: 0 auto;
+            display: flex;
+            gap: 25px;
+        }
+
+        .sidebar {
+            width: 580px;
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            height: fit-content;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        h2 {
+            color: #fff; font-size: 15px; margin-top: 0; margin-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 1px;
+            border-left: 4px solid var(--accent-blue); padding-left: 10px;
+        }
+
+        .control-group {
+            margin-bottom: 22px; background: rgba(255,255,255,0.02);
+            padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .q-context {
+            font-size: 12.5px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5; font-style: italic; background: rgba(56, 189, 248, 0.05); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent-blue);
+        }
+
+        label {
+            display: block; font-weight: 700; margin-bottom: 10px;
+            font-size: 13px; color: #fff; line-height: 1.4;
+        }
+
+        select, input[type="text"] {
+            width: 100%; padding: 10px 12px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.12); background-color: var(--bg-input);
+            color: #fff; font-size: 12.5px; outline: none; transition: border 0.2s;
+            line-height: 1.4; box-sizing: border-box;
+        }
+
+        select:focus, input[type="text"]:focus { border-color: var(--accent-blue); }
+        select:disabled, input[type="text"]:disabled { opacity: 0.7; cursor: not-allowed; background-color: #1e293b; }
+
+        .auth-box {
+            background: rgba(56, 189, 248, 0.03);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+        }
+
+        .auth-box label { margin-bottom: 6px; color: var(--accent-blue); }
+        .auth-box input { margin-bottom: 12px; }
+        .auth-box input:last-child { margin-bottom: 0; }
+
+        .btn-enviar {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white; font-weight: 700; font-size: 14px; text-transform: uppercase;
+            padding: 14px; width: 100%; border: none; border-radius: 10px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); transition: background 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+        }
+        .btn-enviar:hover { background: linear-gradient(135deg, #0369a1 100%, #075985 100%); }
+        .btn-enviar:active { transform: scale(0.98); }
+        .btn-enviar:disabled { background: #475569; cursor: not-allowed; box-shadow: none; opacity: 0.6; }
+
+        .metrics-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+        }
+
+        .metric-card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05);
+            padding: 18px 12px; border-radius: 14px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .metric-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+        .metric-value { font-size: 24px; font-weight: 700; color: #fff; margin: 6px 0; }
+        .metric-delta { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; color: var(--text-muted); background: rgba(255,255,255,0.04); }
+
+        .badge-good { color: var(--accent-green) !important; background: rgba(74, 222, 128, 0.1) !important; border: 1px solid rgba(74, 222, 128, 0.2); }
+        .badge-bad { color: var(--accent-red) !important; background: rgba(248, 113, 113, 0.1) !important; border: 1px solid rgba(248, 113, 113, 0.2); }
+        .badge-neutral { color: var(--text-muted) !important; background: rgba(255, 255, 255, 0.04) !important; }
+
+        .social-impact-box {
+            border-radius: 24px; padding: 30px 25px; text-align: center; transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.05); box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+       
+        .social-emoji { font-size: 80px; margin-bottom: 12px; line-height: 1; user-select: none; }
+        .social-status { font-size: 22px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+        .social-desc { font-size: 14px; max-width: 850px; margin: 0 auto; line-height: 1.6; color: #e2e8f0; }
+       
+        .status-dead { background: linear-gradient(135deg, #451a1a 0%, #1a0808 100%); border-color: var(--accent-red); color: #fca5a5; }
+        .status-angry { background: linear-gradient(135deg, #43250e 0%, #1c0f06 100%); border-color: var(--accent-orange); color: #fed7aa; }
+        .status-neutral { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-color: var(--text-muted); color: #fff; }
+        .status-happy { background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); border-color: var(--accent-green); color: #bbf7d0; }
+
+        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .panel-alertas { background: rgba(248, 113, 113, 0.02); border: 1px solid rgba(248, 113, 113, 0.15); padding: 20px; border-radius: 14px; }
+        .panel-logros { background: rgba(74, 222, 128, 0.02); border: 1px solid rgba(74, 222, 128, 0.15); padding: 20px; border-radius: 14px; }
+        .panel-rubrica { background: rgba(56, 189, 248, 0.02); border: 1px solid rgba(56, 189, 248, 0.15); padding: 22px; border-radius: 14px; margin-top: 10px; }
+       
+        .panel-alertas h3 { color: var(--accent-red); margin-top: 0; font-size: 13px; }
+        .panel-logros h3 { color: var(--accent-green); margin-top: 0; font-size: 13px; }
+        .panel-rubrica h3 { color: var(--accent-blue); margin-top: 0; font-size: 14px; }
+       
+        ul { padding-left: 18px; margin: 0; font-size: 13px; line-height: 1.5; color: #cbd5e1; }
+        li { margin-bottom: 8px; }
+
+        .dim-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 12px; }
+        .dim-table th, .dim-table td { padding: 8px 10px; border: 1px solid rgba(255,255,255,0.08); text-align: center; }
+        .dim-table th { background: rgba(255,255,255,0.05); color: var(--accent-blue); text-transform: uppercase; font-size: 10.5px; }
+        .dim-table td.left-align { text-align: left; }
+        .ans-ok { color: var(--accent-green); font-weight: 700; }
+        .ans-err { color: var(--accent-red); font-weight: 700; }
+       
+        .student-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <h1>🚗 <span>Simulador Avanzado: Electromovilidad en Europa</span></h1>
+    <p>Materia: <strong>Entorno Económico y Legal</strong> | Evaluación de Situación Problema</p>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>📝 Preguntas del Caso (Situación Problema)</h2>
+
+        <div class="auth-box">
+            <label for="input-nombre"><b>Nombre Completo del Alumno:</b></label>
+            <input type="text" id="input-nombre" placeholder="Ej. Juan Pérez González">
+           
+            <label for="input-codigo"><b>Matrícula / Código:</b></label>
+            <input type="text" id="input-codigo" placeholder="Ej. A01234567">
+        </div>
+
+        <!-- P1 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: La industria automotriz genera 1.9 billones de USD en Valor Bruto Agregado (VBA) en Europa. Un desplazamiento acelerado del mercado por subsidios asiáticos altera la estructura de costos y empleo regional.</div>
+            <label>1. ¿Cuales serian los impactos negativos sociales para los paises de la Union Europea si sus gobiernos no intentan disminuir la competencia desleal de los vehiculos chinos?</label>
+            <select id="p1">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Contracción exclusiva de la demanda global de vehículos y un incremento involuntario en la tasa de ahorro privado.</option>
+                <option value="inc2">b) Desplazamiento inmediato de la curva de oferta agregada a la derecha impulsado por menores costos de importación.</option>
+                <option value="correcta">c) Destruccion masiva de empleo industrial directo e indirecto, perdida severa de VBA y erosion de la base gravable corporativa.</option>
+                <option value="inc3">d) Reducción automática en la inflación subyacente que compensa totalmente la pérdida de salarios en la manufactura.</option>
+            </select>
+        </div>
+
+        <!-- P2 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: El uso de aranceles es una medida de política comercial reactiva. La teoría industrial sugiere intervenciones directas del lado de la oferta para cerrar la brecha de competitividad.</div>
+            <label>2. Ademas del aumento de los aranceles a los vehiculos chinos importados, ¿Que otras medidas podrian adoptar los paises de la UE para apoyar o fortalecer su industria de EVs?</label>
+            <select id="p2">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Establecer un precio máximo obligatorio por debajo del costo marginal para todos los vehículos eléctricos en la UE.</option>
+                <option value="inc2">b) Prohibición total de importaciones tecnológicas e imposición de cuotas fijas de producción no ajustables al mercado.</option>
+                <option value="inc3">c) Reducción de los aranceles a cero para todos los insumos y vehículos importados para forzar la quiebra de firmas ineficientes.</option>
+                <option value="correcta">d) Subsidios a I+D para baterias de nueva generacion, creditos fiscales a la produccion local e infraestructura de carga masiva.</option>
+            </select>
+        </div>
+
+        <!-- P3 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: La manufactura de vehículos eléctricos involucra un desarrollo tecnológico intensivo en capital (plataformas modulares, química de celdas, software) antes de comercializar la primera unidad.</div>
+            <label>3. Con base en la informacion del caso, ¿Como se compararian los costos fijos respecto a los costos variables en la produccion de EVs cuando el gobierno no subsidia la produccion?</label>
+            <select id="p3">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="correcta">a) Los CF son proporcionalmente muy altos frente a los CV, requiriendo economias de escala masivas para diluir el Costo Medio Total.</option>
+                <option value="inc1">b) Los CV superan ampliamente a los CF debido al costo de la mano de obra directa de ensamblaje final.</option>
+                <option value="inc2">c) Los CF son prácticamente nulos debido a la automatización extrema de las plantas de manufactura robotizadas.</option>
+                <option value="inc3">d) Ambos costos son perfectamente simétricos e independientes de la escala de producción de la armadora.</option>
+            </select>
+        </div>
+
+        <!-- P4 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: La industria automotriz se caracteriza por requerir elevadas inversiones de capital, presencia de economías de escala y un número reducido de grandes armadoras dominantes.</div>
+            <label>4. Con base en la informacion que se proporciona del caso, ¿Cual seria la estructura de mercado de la industria de vehiculos electricos europeos?</label>
+            <select id="p4">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Competencia Perfecta: Incontables productores con productos homogéneos y precio-aceptantes.</option>
+                <option value="inc2">b) Monopolio Puro: Un solo productor estatal que fija el precio y la cantidad en todo el mercado continental.</option>
+                <option value="correcta">c) Oligopolio: Altas barreras de entrada, diferenciacion de producto e interdependencia estrategica de precios.</option>
+                <option value="inc3">d) Competencia Monopolística estricta: Libre entrada y salida de firmas sin requerimientos de capital significativo.</option>
+            </select>
+        </div>
+
+        <!-- P5 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: Considerando que el modelo BYD Dolphin chino se vende en 10 mil € mientras el precio promedio de un EV compacto en Europa es de 34 mil € dentro del mismo segmento de consumidores.</div>
+            <label>5. ¿Para los vehiculos electricos chinos que se venden en Europa, los vehiculos electricos hechos en Europa son bienes sustitutos, complementarios o no tienen relacion?</label>
+            <select id="p5">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Bienes complementarios fuertes; el incremento en el precio de un modelo reduce automáticamente la demanda del otro.</option>
+                <option value="inc2">b) Bienes totalmente independientes; variaciones en el precio del vehículo chino no tienen efecto en la demanda local.</option>
+                <option value="inc3">c) Bienes Giffen: El incremento en el precio de los vehículos chinos aumenta astronómicamente su cantidad demandada.</option>
+                <option value="correcta">d) Bienes sustitutos fuertes con elasticidad cruzada positiva; el alza en el precio del auto chino aumenta la demanda del europeo.</option>
+            </select>
+        </div>
+
+        <!-- P6 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: El mercado europeo de EVs chinos esta dado por las ecuaciones: Demanda: P = 30 - 8Q | Oferta: P = 8 + 2Q (Precios en miles de €, cantidades en cientos de miles).</div>
+            <label>6. Resuelve el sistema de ecuaciones e indica el precio y la cantidad de equilibrio (P*, Q*) de este mercado sin impuesto:</label>
+            <select id="p6">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Q* = 3.8 (380,000 unidades) | P* = 15.6 mil euros (€15,600)</option>
+                <option value="correcta">b) Q* = 2.2 (220,000 unidades) | P* = 12.4 mil euros (€12,400)</option>
+                <option value="inc2">c) Q* = 1.8 (180,000 unidades) | P* = 11.6 mil euros (€11,600)</option>
+                <option value="inc3">d) Q* = 2.5 (250,000 unidades) | P* = 10.0 mil euros (€10,000)</option>
+            </select>
+        </div>
+
+        <!-- P7 (Modificada: Mayor rigor analítico y equilibrio en opciones) -->
+        <div class="control-group">
+            <div class="q-context">Contexto: La imposición de un arancel sobre los EVs chinos desplaza su curva de oferta hacia arriba, alterando las condiciones competitivas frente al parque vehicular de fabricación europea.</div>
+            <label>7. ¿Cómo impacta estrictamente la aplicación de dicho arancel sobre el mercado de vehículos eléctricos producidos en la Unión Europea?</label>
+            <select id="p7">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="correcta">a) Desplaza la curva de DEMANDA de EVs europeos hacia la derecha, elevando tanto su precio de equilibrio como su cantidad transada.</option>
+                <option value="inc1">b) Desplaza la curva de OFERTA de EVs europeos hacia la izquierda al encarecer de forma directa sus insumos intermedios de importación.</option>
+                <option value="inc2">c) Genera un movimiento descendente a lo largo de su curva de oferta debido a la contracción del ingreso disponible agregado.</option>
+                <option value="inc3">d) Deja perfectamente inalterada la posición de la demanda local, operando exclusivamente mediante ajustes de cuotas cuantitativas.</option>
+            </select>
+        </div>
+
+        <!-- P8 -->
+        <div class="control-group">
+            <div class="q-context">Contexto: Se analiza la afirmación: "Para incrementar las ventas europeas, la UE deberia incrementar la elasticidad de la demanda de EVs chinos, ya que asi se reducirian aun mas sus ventas al imponer el arancel".</div>
+            <label>8. ¿Que tan correcta es la afirmacion planteada sobre la elasticidad de la demanda y el efecto del impuesto?</label>
+            <select id="p8">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Incorrecta: Una demanda más elástica provoca que los consumidores absorban todo el arancel sin alterar la cantidad comprada.</option>
+                <option value="inc2">b) Incorrecta: La elasticidad de la demanda no influye en la magnitud de la variación de la cantidad ante la imposición de un impuesto.</option>
+                <option value="correcta">c) Correcta: A mayor elasticidad precio de demanda, mayor es la caída porcentual en Q ante el incremento de P causado por el arancel.</option>
+                <option value="inc3">d) Correcta: Porque al ser más elástica, la curva de demanda se vuelve totalmente vertical y las ventas caen a cero.</option>
+            </select>
+        </div>
+
+        <!-- P9 (Modificada: Distractores más sofisticados y equilibrados) -->
+        <div class="control-group">
+            <div class="q-context">Contexto: Evaluación integral de bienestar económico sopesando la pérdida de excedente del consumidor frente a la protección del empleo industrial y la recaudación fiscal.</div>
+            <label>9. Desde la perspectiva de la teoría de la política comercial óptima, ¿cuál es la valoración económica de instrumentar un arancel a los EVs chinos?</label>
+            <select id="p9">
+                <option value="vacio" selected>-- Selecciona una respuesta --</option>
+                <option value="inc1">a) Es un instrumento neutro que maximiza el excedente conjunto del consumidor global al equiparar los costos medios de largo plazo.</option>
+                <option value="inc2">b) Representa una política ineficiente bajo cualquier circunstancia, ya que destruye la ganancia derivada de la ventaja comparativa internacional.</option>
+                <option value="correcta">c) Funciona como un mecanismo compensatorio de segunda mejor opción (second-best) que neutraliza subsidios extranjeros y salvaguarda el VBA regional.</option>
+                <option value="inc3">d) Constituye un arancel óptimo de represalia pura destinado a confiscar los excedentes de los productores extranjeros sin alterar el equilibrio interno.</option>
+            </select>
+        </div>
+
+        <button type="button" id="btn-enviar" class="btn-enviar" onclick="bloquearYEvaluar()">Enviar Respuestas y Calificar</button>
+    </div>
+
+    <div class="main-panel">
+        <h2>🎭 Termómetro del Mercado Automotriz Europeo</h2>
+        <div id="social-impact-container" class="social-impact-box status-neutral">
+            <div id="social-emoji" class="social-emoji">😐</div>
+            <div id="social-status" class="social-status">Situación Problema Lista para Evaluar</div>
+            <div id="social-desc" class="social-desc">Ingresa tu nombre y matrícula, responde todas las preguntas y presiona el botón "Enviar Respuestas y Calificar" para ver tu dictamen.</div>
+        </div>
+
+        <h2>📊 Indicadores de Equilibrio y Desempeño</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">💶 Precio EV Chino (P)</div>
+                <div class="metric-value" id="m-precio">--</div>
+                <div class="metric-delta badge-neutral" id="d-precio">P = 30 - 8Q</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">📦 Cantidad EV Chino (Q)</div>
+                <div class="metric-value" id="m-cant">--</div>
+                <div class="metric-delta badge-neutral" id="d-cant">x100k unidades</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">🇪🇺 Ventas EVs UE</div>
+                <div class="metric-value" id="m-eu-sales">--</div>
+                <div class="metric-delta badge-neutral" id="d-eu-sales">Índice Base</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">🏛️ Calificacion / Nota</div>
+                <div class="metric-value" id="m-score">0%</div>
+                <div class="metric-delta badge-neutral" id="d-score">0 / 9 Resueltas</div>
+            </div>
+        </div>
+
+        <div class="results-grid">
+            <div class="panel-alertas">
+                <h3>⚠️ DILEMAS Y ALERTAS DE ENTORNO</h3>
+                <ul id="alertas-lista"><li>Esperando envío de la situación problema...</li></ul>
+            </div>
+            <div class="panel-logros">
+                <h3>✅ RESULTADOS DE POLITICA ECONOMICA</h3>
+                <ul id="logros-lista"><li>Esperando envío de la situación problema...</li></ul>
+            </div>
+        </div>
+
+        <div class="panel-rubrica">
+            <h3>📋 DICTAMEN DE EVALUACIÓN Y DESGLOSE POR PREGUNTA</h3>
+            <div id="rubrica-contenido">
+                <p style="font-size: 13.5px; color: #cbd5e1; margin: 0;">Envía tus respuestas para desbloquear la rúbrica detallada con tu calificación oficial y justificación técnica.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function obtenerLetra(idPregunta, valor) {
+    if (valor === "vacio") return "--";
+    let selectElem = document.getElementById(idPregunta);
+    for (let i = 0; i < selectElem.options.length; i++) {
+        if (selectElem.options[i].value === valor) {
+            let texto = selectElem.options[i].text.trim();
+            return texto.charAt(0).toUpperCase();
+        }
+    }
+    return "--";
+}
+
+function bloquearYEvaluar() {
+    let nombreInput = document.getElementById('input-nombre').value.trim();
+    let codigoInput = document.getElementById('input-codigo').value.trim();
+
+    if (nombreInput === "" || codigoInput === "") {
+        alert("⚠️ Por favor ingresa tu Nombre Completo y tu Matrícula/Código antes de enviar la Situación Problema.");
+        return;
+    }
+
+    let p1 = document.getElementById('p1');
+    let p2 = document.getElementById('p2');
+    let p3 = document.getElementById('p3');
+    let p4 = document.getElementById('p4');
+    let p5 = document.getElementById('p5');
+    let p6 = document.getElementById('p6');
+    let p7 = document.getElementById('p7');
+    let p8 = document.getElementById('p8');
+    let p9 = document.getElementById('p9');
+
+    let selects = [p1, p2, p3, p4, p5, p6, p7, p8, p9];
+    let vacantes = selects.filter(s => s.value === "vacio").length;
+
+    if (vacantes > 0) {
+        alert("⚠️ Faltan " + vacantes + " preguntas por responder. Por favor completa todas las selecciones antes de enviar.");
+        return;
+    }
+
+    if (!confirm("¿Estás seguro de enviar tus respuestas, " + nombreInput + "? Una vez enviado, la situación problema quedará bloqueada en esta sesión.")) {
+        return;
+    }
+
+    document.getElementById('input-nombre').disabled = true;
+    document.getElementById('input-codigo').disabled = true;
+    selects.forEach(s => s.disabled = true);
+    let btn = document.getElementById('btn-enviar');
+    btn.disabled = true;
+    btn.innerText = "Situación Problema Enviada";
+
+    let v1 = p1.value, v2 = p2.value, v3 = p3.value, v4 = p4.value;
+    let v5 = p5.value, v6 = p6.value, v7 = p7.value, v8 = p8.value, v9 = p9.value;
+
+    let c1 = (v1 === "correcta" ? 11 : 0) + (v2 === "correcta" ? 11 : 0);
+    let c2 = (v3 === "correcta" ? 11 : 0) + (v4 === "correcta" ? 11 : 0);
+    let c3 = (v5 === "correcta" ? 11 : 0) + (v6 === "correcta" ? 12 : 0) + (v7 === "correcta" ? 11 : 0);
+    let c4 = (v8 === "correcta" ? 11 : 0) + (v9 === "correcta" ? 11 : 0);
+
+    let scorePct = c1 + c2 + c3 + c4;
+
+    let t = 0.0;
+    if (v9 === "correcta") t = 3.0;
+    else if (v9 === "inc2") t = 10.0;
+    else t = 0.0;
+
+    let Q = (22.0 - t) / 10.0;
+    Q = Math.max(0.0, Q);
+    let P = 30.0 - (8.0 * Q);
+
+    let baseQ = 2.2;
+    let deltaQ = baseQ - Q;
+    let euSalesIndex = 100;
+
+    if (v5 === "correcta" && v7 === "correcta") {
+        euSalesIndex += (deltaQ * 30);
+    } else if (v5 === "inc1") {
+        euSalesIndex -= (deltaQ * 25);
+    }
+    if (v2 === "correcta") euSalesIndex += 15;
+
+    let basePrecio = 12.4;
+    let diffPrecio = P - basePrecio;
+    let pctPrecio = ((diffPrecio / basePrecio) * 100).toFixed(0);
+    let txtPrecioDelta = "";
+    let classPrecioDelta = "badge-neutral";
+
+    if (t === 3.0) {
+        txtPrecioDelta = `▲ +€${diffPrecio.toFixed(1)}k (+${pctPrecio}%) • Favorable`;
+        classPrecioDelta = "badge-good";
+    } else if (t === 10.0) {
+        txtPrecioDelta = `▲ +€${diffPrecio.toFixed(1)}k (+${pctPrecio}%) • Excesivo (Malo)`;
+        classPrecioDelta = "badge-bad";
+    } else {
+        txtPrecioDelta = `Sin Arancel (Base)`;
+        classPrecioDelta = "badge-neutral";
+    }
+
+    let diffCant = Q - baseQ;
+    let pctCant = ((diffCant / baseQ) * 100).toFixed(0);
+    let txtCantDelta = "";
+    let classCantDelta = "badge-neutral";
+
+    if (Q < baseQ) {
+        txtCantDelta = `▼ ${diffCant.toFixed(1)} (${pctCant}%) • Protege Local (Bueno)`;
+        classCantDelta = "badge-good";
+    } else {
+        txtCantDelta = `Sin Variación (Invasión)`;
+        classCantDelta = "badge-bad";
+    }
+
+    let diffSales = euSalesIndex - 100;
+    let txtSalesDelta = "";
+    let classSalesDelta = "badge-neutral";
+
+    if (euSalesIndex > 100) {
+        txtSalesDelta = `▲ +${diffSales}% vs Base • Favorable`;
+        classSalesDelta = "badge-good";
+    } else {
+        txtSalesDelta = `▼ Estancado/Débil • Malo`;
+        classSalesDelta = "badge-bad";
+    }
+
+    let alertas = []; let logros = [];
+
+    if (v1 === "correcta") logros.push("P1: Identificación precisa del impacto socioeconómico y fiscal por pérdida de VBA industrial.");
+    else alertas.push("P1: Error en la apreciación de los impactos sociales y la destrucción de empleo manufacturero.");
+
+    if (v3 === "correcta" && v4 === "correcta") logros.push("P3 y P4: Excelente caracterización de la estructura oligopólica e intensidad de Costos Fijos.");
+    else alertas.push("P3/P4: Fallo en la identificación de la estructura de mercado o la dinámica de costos.");
+
+    if (v5 === "correcta" && v7 === "correcta") logros.push("P5 y P7: Comprensión rigurosa del efecto sustitución y desplazamiento positivo de la demanda local.");
+    else alertas.push("P5/P7: Error en la relación de bienes o en la dirección del desplazamiento de las curvas.");
+
+    if (v6 === "correcta") logros.push("P6: Cálculo analítico de equilibrio perfecto: Q* = 2.2, P* = 12.4k €.");
+    else alertas.push("P6: Error de cálculo analítico en el sistema de ecuaciones.");
+
+    if (v8 === "correcta") logros.push("P8: Rigor técnico: Se demuestra cómo la elasticidad precio magnifica la caída de ventas.");
+    else alertas.push("P8: Incomprensión del efecto de la elasticidad de demanda.");
+
+    if (v9 === "correcta") logros.push("P9: Política arancelaria óptima (3k €) balancea la protección industrial y el consumidor.");
+    else if (v9 === "inc1") alertas.push("P9: Ausencia de arancel deja desprotegida a la industria frente a subsidios extranjeros.");
+    else if (v9 === "inc2") alertas.push("P9: Arancel de 10k € destruye el excedente del consumidor y genera ineficiencia.");
+
+    document.getElementById('m-precio').innerText = '€' + P.toFixed(1) + 'k';
+    document.getElementById('d-precio').className = "metric-delta " + classPrecioDelta;
+    document.getElementById('d-precio').innerText = txtPrecioDelta;
+
+    document.getElementById('m-cant').innerText = Q.toFixed(1);
+    document.getElementById('d-cant').className = "metric-delta " + classCantDelta;
+    document.getElementById('d-cant').innerText = txtCantDelta;
+
+    document.getElementById('m-eu-sales').innerText = euSalesIndex.toFixed(0) + '%';
+    document.getElementById('d-eu-sales').className = "metric-delta " + classSalesDelta;
+    document.getElementById('d-eu-sales').innerText = txtSalesDelta;
+
+    document.getElementById('m-score').innerText = scorePct + '%';
+    document.getElementById('d-score').innerText = '9 / 9 Resueltas';
+
+    let sBox = document.getElementById('social-impact-container');
+    let sEmoji = document.getElementById('social-emoji');
+    let sStatus = document.getElementById('social-status');
+    let sDesc = document.getElementById('social-desc');
+    let rubricaDiv = document.getElementById('rubrica-contenido');
+
+    let letra = 'F';
+    let nivel = 'No Acreditado';
+    let colorNivel = 'var(--accent-red)';
+
+    if (scorePct >= 85) { letra = 'A'; nivel = 'Excelente / Sobresaliente'; colorNivel = 'var(--accent-green)'; }
+    else if (scorePct >= 70) { letra = 'B'; nivel = 'Competente / Buen Desempeño'; colorNivel = 'var(--accent-blue)'; }
+    else if (scorePct >= 55) { letra = 'C'; nivel = 'En Desarrollo / Suficiente'; colorNivel = 'var(--accent-orange)'; }
+
+    if (scorePct >= 85) {
+        sBox.className = "social-impact-box status-happy";
+        sEmoji.innerText = "🥳";
+        sStatus.innerText = "¡Dominio Macroeconómico y Microeconómico Total!";
+        sDesc.innerText = "Evaluación sobresaliente (" + scorePct + "/100). El arancel compensatorio de 3.0k € equilibra el mercado chino (Q=" + Q.toFixed(1) + ", P=" + P.toFixed(1) + "k €) e impulsa las ventas europeas al " + euSalesIndex.toFixed(0) + "% protegiendo el empleo y la inversión.";
+    } else if (v9 === "inc1" || v1 !== "correcta") {
+        sBox.className = "social-impact-box status-dead";
+        sEmoji.innerText = "💀";
+        sStatus.innerText = "Desindustrialización y Desempleo Severo";
+        sDesc.innerText = "La falta de corrección a la competencia desleal permite la entrada masiva de autos chinos a 12.4k €, provocando el cierre de plantas en Europa.";
+    } else if (v9 === "inc2") {
+        sBox.className = "social-impact-box status-angry";
+        sEmoji.innerText = "😡";
+        sStatus.innerText = "Proteccionismo Extremo y Pérdida de Bienestar";
+        sDesc.innerText = "El arancel prohibitivo de 10k € encarece los vehículos a " + P.toFixed(1) + "k €, reduciendo las opciones de transporte para las familias europeas.";
+    } else {
+        sBox.className = "social-impact-box status-neutral";
+        sEmoji.innerText = "😐";
+        sStatus.innerText = "Inconsistencias Teóricas en la Evaluación";
+        sDesc.innerText = "El desempeño muestra confusiones entre elasticidades, desplazamientos de curvas o cálculos de equilibrio.";
+    }
+
+    let preguntasInfo = [
+        { id: "p1", num: "P1", dim: "1. Entorno Socioeconómico", val: v1, corr: "C", pts: (v1==="correcta"?11:0), max: 11 },
+        { id: "p2", num: "P2", dim: "1. Entorno Socioeconómico", val: v2, corr: "D", pts: (v2==="correcta"?11:0), max: 11 },
+        { id: "p3", num: "P3", dim: "2. Estructura e Intensidad", val: v3, corr: "A", pts: (v3==="correcta"?11:0), max: 11 },
+        { id: "p4", num: "P4", dim: "2. Estructura e Intensidad", val: v4, corr: "C", pts: (v4==="correcta"?11:0), max: 11 },
+        { id: "p5", num: "P5", dim: "3. Microeconomía y Equilibrio", val: v5, corr: "D", pts: (v5==="correcta"?11:0), max: 11 },
+        { id: "p6", num: "P6", dim: "3. Microeconomía y Equilibrio", val: v6, corr: "B", pts: (v6==="correcta"?12:0), max: 12 },
+        { id: "p7", num: "P7", dim: "3. Microeconomía y Equilibrio", val: v7, corr: "A", pts: (v7==="correcta"?11:0), max: 11 },
+        { id: "p8", num: "P8", dim: "4. Elasticidad y Política", val: v8, corr: "C", pts: (v8==="correcta"?11:0), max: 11 },
+        { id: "p9", num: "P9", dim: "4. Elasticidad y Política", val: v9, corr: "C", pts: (v9==="correcta"?11:0), max: 11 }
+    ];
+
+    let tablaRows = preguntasInfo.map(p => {
+        let selLetra = obtenerLetra(p.id, p.val);
+        let esOk = (p.val === "correcta");
+        let classAns = esOk ? "ans-ok" : "ans-err";
+        return `
+            <tr>
+                <td class="left-align">${p.dim}</td>
+                <td><b>${p.num}</b></td>
+                <td class="${classAns}">${selLetra} ${esOk ? '✓' : '✗'}</td>
+                <td style="color: var(--accent-green); font-weight:700;">${p.corr}</td>
+                <td><b>${p.pts} / ${p.max}%</b></td>
+            </tr>
+        `;
+    }).join('');
+
+    let justificacion = "";
+    if (v6 !== "correcta") {
+        justificacion += "<b>• Error Cuantitativo en P6:</b> La resolución del sistema algebraico (30 - 8Q = 8 + 2Q) exigía despejar 10Q = 22, obteniendo Q* = 2.2 (220k unidades) y P* = €12.4k. Un fallo en este punto distorsiona el cálculo del excedente y la cantidad de equilibrio.<br>";
+    }
+    if (v5 !== "correcta" || v7 !== "correcta") {
+        justificacion += "<b>• Error en Teoría de la Demanda (P5/P7):</b> No se identificó que la elasticidad cruzada positiva (Exy > 0) define a los vehículos chinos y europeos como bienes sustitutos. Por ende, un arancel al auto chino desplaza la curva de DEMANDA de autos europeos a la derecha (no la oferta).<br>";
+    }
+    if (v8 !== "correcta") {
+        justificacion += "<b>• Error en Elasticidad Precio (P8):</b> A mayor elasticidad precio de la demanda, la pérdida de cantidad demandada tras la imposición del impuesto es cuantitativamente mayor, amplificando el impacto arancelario.<br>";
+    }
+    if (v3 !== "correcta" || v4 !== "correcta") {
+        justificacion += "<b>• Imprecisión en Estructura Industrial (P3/P4):</b> La manufactura de EVs se define como un Oligopolio caracterizado por elevados Costos Fijos iniciales en I+D, requiriendo economías de escala para reducir el Costo Medio Total.<br>";
+    }
+    if (justificacion === "") {
+        justificacion = "<b>• Desempeño Perfecto:</b> El alumno resolvió correctamente el sistema algebraico de ecuaciones de oferta y demanda, fundamentó la relación de sustitución fuerte entre mercados y seleccionó la combinación óptima de política comercial que maximiza el bienestar social protegiendo el Valor Bruto Agregado (VBA) de la región.";
+    }
+
+    rubricaDiv.innerHTML = `
+        <div class="student-badge">👤 Alumno: <b>${nombreInput}</b> | Matrícula/Código: <b>${codigoInput}</b></div>
+       
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 12px 18px; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.08);">
+            <div>
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Calificación Final:</span>
+                <div style="font-size: 26px; font-weight: 800; color: ${colorNivel};">${scorePct} / 100 (Grado ${letra})</div>
+            </div>
+            <div style="text-align: right;">
+                <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Nivel Alcanzado:</span>
+                <div style="font-size: 15px; font-weight: 700; color: #fff;">${nivel}</div>
+            </div>
+        </div>
+
+        <table class="dim-table">
+            <thead>
+                <tr>
+                    <th class="left-align">Dimensión Evaluada</th>
+                    <th>Pregunta</th>
+                    <th>Opción Elegida</th>
+                    <th>Opción Correcta</th>
+                    <th>Puntuación</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tablaRows}
+            </tbody>
+        </table>
+
+        <p style="font-size: 12.5px; color: #e2e8f0; line-height: 1.6; margin: 0;">
+            <b>Justificación Docente Detallada:</b><br>${justificacion}
+        </p>
+    `;
+
+    let alertasHtml = alertas.map(a => `<li>${a}</li>`).join('');
+    let logrosHtml = logros.map(l => `<li>${l}</li>`).join('');
+    document.getElementById('alertas-lista').innerHTML = alertasHtml || "<li>Progreso estable sin fallas graves identificadas.</li>";
+    document.getElementById('logros-lista').innerHTML = logrosHtml || "<li>Continúa resolviendo para desbloquear logros teóricos.</li>";
+}
+</script>
+</body>
+</html>
